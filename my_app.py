@@ -3,6 +3,7 @@ import pickle
 import pandas as pd
 from sklearn.compose import make_column_transformer
 from sklearn.preprocessing import OrdinalEncoder
+from sklearn import *
 
 st.sidebar.title('Car Price Prediction')
 html_temp = """
