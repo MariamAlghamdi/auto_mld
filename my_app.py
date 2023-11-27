@@ -32,13 +32,12 @@ my_dict = {
     
 }
 
-df = pd.DataFrame.from_dict([my_dict])
+new_obs = pd.DataFrame.from_dict([my_dict])
+#st.header("The configuration of your car is below")
+#st.table(df)
 
 
-st.header("The configuration of your car is below")
-st.table(df)
-
-df2 = ds13_transformer.transform(df)
+df2 = ds13_transformer.transform(new_obs)
 
 st.subheader("Press predict if configuration is okay")
 
