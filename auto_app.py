@@ -17,3 +17,36 @@ df=pd.read_csv("final_scout_not_dummy.csv")
 
 st.table(df.head(3))
 
+
+age=st.sidebar.selectbox("What is the age of your car:",(0,1,2,3))
+hp=st.sidebar.slider("What is the hp_kw of your car?", 40, 300, step=5)
+km=st.sidebar.slider("What is the km of your car", 0,350000, step=1000)
+gearing_type=st.sidebar.radio('Select gear type',('Automatic','Manual','Semi-automatic'))
+car_model=st.sidebar.selectbox("Select model of your car", ('Audi A1', 'Audi A3', 'Opel Astra', 'Opel Corsa', 'Opel Insignia', 'Renault Clio', 'Renault Duster', 'Renault Espace'))
+
+
+ds13_model=pickle.load(open("rf_model_new","rb"))
+ds13_transformer = pickle.load(open('transformer', 'rb'))
+
+
+my_dict = {
+    "age": age,
+    "hp_kW": hp,
+    "km": km,
+    'Gearing_Type':gearing_type,
+    "make_model": car_model
+    
+}
+
+new_obs = pd.DataFrame.from_dict([my_dict])
+st.header("The configuration of your car is below")
+st.table(df)
+
+
+df2 = ds13_transformer.transform(new_obs)
+
+st.subheader("Press predict if configuration is okay")
+
+if st.button("Predict"):
+    prediction = ds13_model.predict(df2)
+    st.success("The estimated price of your car is €{}. ".format(int(prediction[0])))
