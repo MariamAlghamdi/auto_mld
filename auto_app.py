@@ -11,13 +11,6 @@ html_temp = """
 </div>"""
 st.markdown(html_temp, unsafe_allow_html=True)
 
-st.write("Hello World! , This is some Data:")
-
-df=pd.read_csv("final_scout_not_dummy.csv")
-
-st.table(df.head(3))
-
-
 age=st.sidebar.selectbox("What is the age of your car:",(0,1,2,3))
 hp=st.sidebar.slider("What is the hp_kw of your car?", 40, 300, step=5)
 km=st.sidebar.slider("What is the km of your car", 0,350000, step=1000)
